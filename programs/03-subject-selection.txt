@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: Subject()));
+
+class Subject extends StatefulWidget {
+  @override
+  State<Subject> createState() => _SubjectState();
+}
+
+class _SubjectState extends State<Subject> {
+  String s = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          for (var x in ['Data Science', 'Networking', 'MAD', 'IOT'])
+            RadioListTile(
+              title: Text(x),
+              value: x,
+              groupValue: s,
+              onChanged: (v) => setState(() => s = v!),
+            ),
+          Text(s),
+        ],
+      ),
+    );
+  }
+}

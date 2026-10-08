@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>MAD Lab Programs</title>
+</head>
+<body>
+  <ul id="list"></ul>
+  <p id="title"></p>
+  <pre id="code"></pre>
+
+  <script>
+    const programs = [
+      { title: "Greatest of Three", file: "programs/01-greatest-of-three.txt" },
+      { title: "Personal Details", file: "programs/02-personal-details.txt" },
+      { title: "Subject Selection", file: "programs/03-subject-selection.txt" },
+      { title: "Image Button", file: "programs/04-image-button.txt" },
+      { title: "Alert Dialog", file: "programs/05-alert-dialog.txt" },
+      { title: "Layout Demo", file: "programs/06-layout-demo.txt" },
+      { title: "Audio Mode", file: "programs/07-audio-mode.txt" },
+      { title: "Student Marksheet", file: "programs/08-student-marksheet.txt" },
+      { title: "Student Login", file: "programs/09-student-login.txt" },
+      { title: "CRUD", file: "programs/10-crud.txt" }
+    ];
+
+    const cache = {};
+    const list = document.getElementById("list");
+    const titleEl = document.getElementById("title");
+    const codeEl = document.getElementById("code");
+
+    async function loadCode(file) {
+      if (!cache[file]) {
+        const res = await fetch(file);
+        cache[file] = await res.text();
+      }
+      return cache[file];
+    }
+
+    async function showProgram(index) {
+      const p = programs[index];
+      const code = await loadCode(p.file);
+      titleEl.textContent = p.title;
+      codeEl.textContent = code.replace(/\r\n/g, "\n").trimEnd() + "\n";
+    }
+
+    async function copyProgram(index) {
+      const p = programs[index];
+      const code = await loadCode(p.file);
+      await navigator.clipboard.writeText(code);
+    }
+
+    programs.forEach(function (p, i) {
+      const li = document.createElement("li");
+      const name = document.createElement("a");
+      name.href = "#";
+      name.textContent = p.title;
+      name.onclick = function (e) {
+        e.preventDefault();
+        showProgram(i);
+      };
+
+      const copyBtn = document.createElement("button");
+      copyBtn.type = "button";
+      copyBtn.textContent = "Copy";
+      copyBtn.onclick = function () {
+        copyProgram(i);
+      };
+
+      const download = document.createElement("a");
+      download.href = p.file;
+      download.download = "";
+      download.textContent = "Download";
+
+      li.appendChild(name);
+      li.appendChild(document.createTextNode(" "));
+      li.appendChild(copyBtn);
+      li.appendChild(document.createTextNode(" "));
+      li.appendChild(download);
+      list.appendChild(li);
+    });
+  </script>
+</body>
+</html>

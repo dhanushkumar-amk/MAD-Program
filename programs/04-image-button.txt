@@ -1,0 +1,22 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: ImageApp()));
+
+class ImageApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: GestureDetector(
+          onTap: () => showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              content: Text('Image clicked!'),
+            ),
+          ),
+          child: Image.network('https://picsum.photos/200'),
+        ),
+      ),
+    );
+  }
+}

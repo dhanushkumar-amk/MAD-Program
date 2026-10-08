@@ -1,0 +1,35 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: Audio()));
+
+class Audio extends StatefulWidget {
+  @override
+  State<Audio> createState() => _AudioState();
+}
+
+class _AudioState extends State<Audio> {
+  String mode = 'NORMAL';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Text('Mode: $mode'),
+          ElevatedButton(
+            onPressed: () => setState(() => mode = 'NORMAL'),
+            child: Text('NORMAL'),
+          ),
+          ElevatedButton(
+            onPressed: () => setState(() => mode = 'SILENT'),
+            child: Text('SILENT'),
+          ),
+          ElevatedButton(
+            onPressed: () => setState(() => mode = 'VIBRATE'),
+            child: Text('VIBRATE'),
+          ),
+        ],
+      ),
+    );
+  }
+}

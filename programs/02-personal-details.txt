@@ -1,0 +1,19 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: Details()));
+
+class Details extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Text('Name: Dhanush Kumar'),
+          Text('Age: 22'),
+          Text('Email: dhanush@gmail.com'),
+          Text('City: Coimbatore'),
+        ],
+      ),
+    );
+  }
+}

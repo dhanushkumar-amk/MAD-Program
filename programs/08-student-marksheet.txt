@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: Marksheet()));
+
+class Marksheet extends StatefulWidget {
+  @override
+  State<Marksheet> createState() => _MarksheetState();
+}
+
+class _MarksheetState extends State<Marksheet> {
+  final name = TextEditingController();
+  final m1 = TextEditingController();
+  final m2 = TextEditingController();
+  final m3 = TextEditingController();
+  String result = '';
+
+  void calculate() {
+    int a = int.tryParse(m1.text) ?? 0;
+    int b = int.tryParse(m2.text) ?? 0;
+    int c = int.tryParse(m3.text) ?? 0;
+    int total = a + b + c;
+    setState(() {
+      result = 'Name: ${name.text}\nTotal: $total\nAverage: ${total / 3}';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          TextField(controller: name),
+          TextField(controller: m1),
+          TextField(controller: m2),
+          TextField(controller: m3),
+          ElevatedButton(
+            onPressed: calculate,
+            child: Text('Calculate'),
+          ),
+          Text(result),
+        ],
+      ),
+    );
+  }
+}

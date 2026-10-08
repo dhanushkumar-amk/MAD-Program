@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: Login()));
+
+class Login extends StatelessWidget {
+  final email = TextEditingController();
+  final pass = TextEditingController();
+
+  void check(BuildContext c) {
+    if (email.text == 'admin@gmail.com' && pass.text == '1234') {
+      Navigator.push(
+        c,
+        MaterialPageRoute(builder: (_) => Welcome()),
+      );
+    } else {
+      ScaffoldMessenger.of(c).showSnackBar(
+        SnackBar(content: Text('Invalid Login')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext c) {
+    return Scaffold(
+      body: Column(
+        children: [
+          TextField(controller: email),
+          TextField(controller: pass, obscureText: true),
+          ElevatedButton(
+            onPressed: () => check(c),
+            child: Text('Login'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Welcome extends StatelessWidget {
+  @override
+  Widget build(BuildContext c) {
+    return Scaffold(
+      body: Center(child: Text('Welcome Guys..!!!')),
+    );
+  }
+}

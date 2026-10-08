@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: Crud()));
+
+class Crud extends StatefulWidget {
+  @override
+  State<Crud> createState() => _CrudState();
+}
+
+class _CrudState extends State<Crud> {
+  List<String> items = [];
+  final c = TextEditingController();
+
+  void add() {
+    if (c.text.isNotEmpty) {
+      setState(() {
+        items.add(c.text);
+        c.clear();
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          TextField(controller: c),
+          ElevatedButton(
+            onPressed: add,
+            child: Text('Add'),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (_, i) => ListTile(
+                title: Text(items[i]),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        c.text = items[i];
+                        setState(() => items[i] = c.text);
+                      },
+                      child: Text('Edit'),
+                    ),
+                    TextButton(
+                      onPressed: () => setState(() => items.removeAt(i)),
+                      child: Text('Delete'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

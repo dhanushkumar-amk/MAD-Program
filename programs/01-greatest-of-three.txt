@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: Greatest()));
+
+class Greatest extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    int a = 10, b = 25, c = 15;
+    int g = a;
+    if (b > g) g = b;
+    if (c > g) g = c;
+    return Scaffold(
+      body: Center(
+        child: Text(
+          'Greatest: $g',
+          style: TextStyle(fontSize: 25),
+        ),
+      ),
+    );
+  }
+}
